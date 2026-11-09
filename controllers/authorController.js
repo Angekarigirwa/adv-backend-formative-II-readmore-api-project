@@ -73,3 +73,33 @@ exports.getAuthorBooks = async (req, res) => {
     res.status(400).json({ error: 'Invalid author id' });
   }
 };
+// GET /authors/:id/stats
+exports.getAuthorStats = async (req, res) => {
+  try {
+    const author = await Author.findById(req.params.id);
+    if (!author) return res.status(404).json({ error: 'Author not found' });
+
+    const books = await Book.find({ author: req.params.id }).sort({ price: 1 });
+
+    if (books.length === 0) {
+      return res.json({
+        author: author.name,
+        bookCount: 0,
+        averagePrice: 0,
+        cheapestBook: null,
+        mostExpensiveBook: null
+      });
+    }
+
+    const total = books.reduce((sum, b) => sum + b.price, 0);
+    res.json({
+      author: author.name,
+      bookCount: books.length,
+      averagePrice: Math.round((total / books.length) * 100) / 100,
+      cheapestBook: books[0].title,
+      mostExpensiveBook: books[books.length - 1].title
+    });
+  } catch {
+    res.status(400).json({ error: 'Invalid author id' });
+  }
+};
