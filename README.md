@@ -3,7 +3,7 @@
 A RESTful API for a bookstore, built with Express.js, MongoDB Atlas, and Mongoose. It manages Authors and Books with a one-to-many relationship, enforcing several business rules.
 
 ## 🎥 Video Walkthrough
-[Watch the implementation walkthrough here]https://youtu.be/bzxHxpVlj8g
+[Watch the implementation walkthrough here](PASTE_YOUR_VIDEO_LINK_HERE)
 
 ## 📁 Project Architecture & Folder Structure
 
